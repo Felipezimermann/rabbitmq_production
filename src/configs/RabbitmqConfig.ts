@@ -4,10 +4,13 @@ export default class RabbitmqServer {
   private conn: Connection;
   private channel: Channel;
 
-  constructor(private uri: string) {}
+  constructor(private uri: string, private name: string) {}
 
   async start(): Promise<void> {
-    this.conn = await connect(this.uri);
+    this.conn = await connect(
+      { protocol: 'amqp', hostname: this.uri, port: 5672, username: 'admin', password: 'admin' },
+      { clientProperties: { connection_name: this.name } }
+    );
     this.channel = await this.conn.createChannel();
   }
 

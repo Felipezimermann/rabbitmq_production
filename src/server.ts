@@ -12,7 +12,7 @@ const trabalho = () => {
     res.header('Access-Control-Allow-Headers', '*');
     next();
   });
-  const serverRabbit = new RabbitmqServer('amqp://admin:admin@172.21.0.2:5672');
+  const serverRabbit = new RabbitmqServer('localhost', 'DBU TECH - PRODUTOR');
   serverRabbit.start();
 
   app.post('/queue', async (req: Request, res: Response) => {
